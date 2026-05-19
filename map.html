@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map — Veterans Stories</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-brand"><span class="star">★</span> Veterans Stories</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="story.html">Tell Your Story</a></li>
+      <li><a href="timeline.html">Timeline</a></li>
+      <li><a href="map.html" class="active">Map</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1>🗺️ Geographic Stories Map</h1>
+    <p>Explore where our veterans served — see the global footprint of their courage and sacrifice.</p>
+  </div>
+</div>
+
+<!-- Map Section -->
+<section class="section">
+  <div class="container">
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterMap('All', this)">All Stories</button>
+      <button class="filter-btn" onclick="filterMap('World War II', this)">World War II</button>
+      <button class="filter-btn" onclick="filterMap('Korean War', this)">Korean War</button>
+      <button class="filter-btn" onclick="filterMap('Vietnam War', this)">Vietnam War</button>
+      <button class="filter-btn" onclick="filterMap('Gulf War', this)">Gulf War</button>
+      <button class="filter-btn" onclick="filterMap('War on Terror', this)">War on Terror</button>
+      <button class="filter-btn" onclick="filterMap('Iraq War', this)">Iraq War</button>
+      <button class="filter-btn" onclick="filterMap('Afghanistan War', this)">Afghanistan</button>
+    </div>
+
+    <!-- Map Container -->
+    <div class="map-container" id="mapContainer">
+      <!-- World map SVG with story pins -->
+      <svg class="map-svg" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" id="mapSvg">
+        <!-- Background -->
+        <rect width="1000" height="500" fill="#d4c8b0"/>
+
+        <!-- Simplified world map paths -->
+        <!-- North America -->
+        <path d="M 80,60 L 200,40 L 280,60 L 310,100 L 300,160 L 280,200 L 260,240 L 240,280 L 200,300 L 160,310 L 120,290 L 100,260 L 80,220 L 60,180 L 50,140 L 60,100 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- Central America -->
+        <path d="M 180,280 L 210,300 L 220,330 L 200,350 L 180,340 L 170,310 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- South America -->
+        <path d="M 220,330 L 260,320 L 290,340 L 300,380 L 290,420 L 270,460 L 250,470 L 230,460 L 220,430 L 210,390 L 215,360 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- Europe -->
+        <path d="M 400,60 L 440,50 L 480,55 L 500,70 L 490,100 L 480,130 L 460,160 L 440,170 L 420,160 L 400,140 L 390,110 L 385,80 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- Africa -->
+        <path d="M 430,170 L 470,165 L 510,180 L 530,220 L 530,280 L 520,340 L 500,380 L 470,400 L 450,390 L 430,350 L 420,300 L 415,250 L 420,210 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- Middle East -->
+        <path d="M 530,150 L 580,140 L 620,155 L 630,190 L 610,220 L 580,230 L 550,220 L 530,190 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- South Asia / India -->
+        <path d="M 630,180 L 660,170 L 680,190 L 690,230 L 680,280 L 660,300 L 640,290 L 630,250 L 625,220 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- Southeast Asia / Vietnam -->
+        <path d="M 700,180 L 730,175 L 750,195 L 755,230 L 740,260 L 720,270 L 710,250 L 705,220 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- East Asia / Korea -->
+        <path d="M 720,100 L 760,90 L 780,110 L 775,140 L 760,155 L 740,150 L 725,130 L 720,115 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- Japan -->
+        <path d="M 800,120 L 820,110 L 830,130 L 825,160 L 810,170 L 800,155 L 798,135 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- Australia -->
+        <path d="M 780,340 L 840,330 L 890,345 L 900,380 L 880,420 L 840,430 L 800,420 L 780,390 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+        <!-- Greenland -->
+        <path d="M 310,30 L 370,20 L 400,40 L 390,70 L 360,80 L 330,70 L 310,50 Z" fill="#b8a88c" stroke="#8a7a64" stroke-width="1"/>
+
+        <!-- Grid lines -->
+        <g opacity=".15">
+          <line x1="0" y1="125" x2="1000" y2="125" stroke="#666" stroke-width=".5"/>
+          <line x1="0" y1="250" x2="1000" y2="250" stroke="#666" stroke-width=".5"/>
+          <line x1="0" y1="375" x2="1000" y2="375" stroke="#666" stroke-width=".5"/>
+          <line x1="250" y1="0" x2="250" y2="500" stroke="#666" stroke-width=".5"/>
+          <line x1="500" y1="0" x2="500" y2="500" stroke="#666" stroke-width=".5"/>
+          <line x1="750" y1="0" x2="750" y2="500" stroke="#666" stroke-width=".5"/>
+        </g>
+
+        <!-- Story pins will be injected by stories.js -->
+        <g id="mapPins"></g>
+
+        <!-- Legend -->
+        <g id="legend" transform="translate(16, 16)">
+          <rect width="140" height="130" rx="8" fill="rgba(245,240,232,.95)" stroke="#8a7a64" stroke-width="1"/>
+          <text x="10" y="20" font-family="Playfair Display, serif" font-size="11" font-weight="700" fill="#1a2744">Legend</text>
+          <circle cx="22" cy="38" r="5" fill="#c8a84e"/>
+          <text x="34" y="42" font-family="Source Sans 3, sans-serif" font-size="9" fill="#444">WWII</text>
+          <circle cx="22" cy="58" r="5" fill="#4a6741"/>
+          <text x="34" y="62" font-family="Source Sans 3, sans-serif" font-size="9" fill="#444">Korean War</text>
+          <circle cx="22" cy="78" r="5" fill="#8b2500"/>
+          <text x="34" y="82" font-family="Source Sans 3, sans-serif" font-size="9" fill="#444">Vietnam War</text>
+          <circle cx="22" cy="98" r="5" fill="#2c5f8a"/>
+          <text x="34" y="102" font-family="Source Sans 3, sans-serif" font-size="9" fill="#444">Gulf War</text>
+          <circle cx="22" cy="118" r="5" fill="#6b4c8a"/>
+          <text x="34" y="122" font-family="Source Sans 3, sans-serif" font-size="9" fill="#444">War on Terror</text>
+        </g>
+
+        <!-- Title -->
+        <text x="500" y="485" text-anchor="middle" font-family="Playfair Display, serif" font-size="12" fill="#8a7a64" letter-spacing="2">VETERANS SERVICE LOCATIONS</text>
+      </svg>
+    </div>
+
+    <!-- Stories from Map Pins -->
+    <div id="mapStories" style="margin-top:40px;">
+      <div class="section-header">
+        <div class="overline">Stories by Location</div>
+        <h2>Hover over a pin to preview</h2>
+      </div>
+      <div class="card-grid" id="mapStoryGrid">
+        <!-- Stories injected by stories.js -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p class="brand" style="margin-bottom:8px;">★ Veterans Stories</p>
+    <p>Preserving the firsthand accounts of our nation's veterans. Built with gratitude and respect.</p>
+    <p style="margin-top:12px;">&copy; 2026 Veterans Stories. All rights reserved. | <a href="contact.html">Contact Us</a></p>
+  </div>
+</footer>
+
+<script src="js/stories.js"></script>
+<script>
+  // Conflict colors for legend
+  const conflictColors = {
+    'World War II': '#c8a84e',
+    'Korean War': '#4a6741',
+    'Vietnam War': '#8b2500',
+    'Gulf War': '#2c5f8a',
+    'War on Terror': '#6b4c8a',
+    'Iraq War': '#8b2500',
+    'Afghanistan War': '#6b4c8a'
+  };
+
+  // Convert lat/lng to SVG coordinates (equirectangular projection)
+  function latLngToXY(lat, lng) {
+    const x = (lng + 180) * (1000 / 360);
+    const y = (90 - lat) * (500 / 180);
+    return [x, y];
+  }
+
+  // Render map pins
+  function renderMapPins() {
+    const container = document.getElementById('mapPins');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const userStories = JSON.parse(localStorage.getItem('veteranStories') || '[]');
+    const allStories = [...demoStories, ...userStories];
+
+    allStories.forEach(s => {
+      if (!s.lat || !s.lng) return;
+      const [x, y] = latLngToXY(parseFloat(s.lat), parseFloat(s.lng));
+      const color = conflictColors[s.conflict] || '#8b2500';
+
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.className = 'map-pin';
+      g.setAttribute('data-conflict', s.conflict);
+      g.setAttribute('transform', `translate(${x}, ${y})`);
+
+      // Pulse ring
+      const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      ring.setAttribute('cx', 0); ring.setAttribute('cy', 0); ring.setAttribute('r', 14);
+      ring.setAttribute('fill', 'none'); ring.setAttribute('stroke', color);
+      ring.setAttribute('stroke-width', '1.5'); ring.setAttribute('opacity', '0.3');
+      g.appendChild(ring);
+
+      // Main pin
+      const pin = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      pin.setAttribute('cx', 0); pin.setAttribute('cy', 0); pin.setAttribute('r', 7);
+      pin.setAttribute('fill', color); pin.setAttribute('stroke', '#fff');
+      pin.setAttribute('stroke-width', '2');
+      g.appendChild(pin);
+
+      // Tooltip
+      const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+      title.textContent = `${s.displayName || s.name} — ${s.conflict} (${s.yearFrom || ''}-${s.yearTo || ''})`;
+      g.appendChild(title);
+
+      container.appendChild(g);
+    });
+  }
+
+  // Render map stories grid
+  function renderMapStories(conflict) {
+    const grid = document.getElementById('mapStoryGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    const userStories = JSON.parse(localStorage.getItem('veteranStories') || '[]');
+    const allStories = [...demoStories, ...userStories];
+
+    allStories.forEach(s => {
+      if (conflict && conflict !== 'All' && s.conflict !== conflict) return;
+      if (!s.lat || !s.lng) return;
+
+      const card = document.createElement('div');
+      card.className = 'story-card';
+      card.innerHTML = `
+        <div class="meta">
+          <span>📅 ${s.yearFrom || '?'}–${s.yearTo || '?'}</span>
+          <span>⚔️ ${s.conflict || 'Unknown'}</span>
+          <span>🎖️ ${s.branch || 'Unknown'}</span>
+          ${s.location ? `<span>📍 ${s.location}</span>` : ''}
+        </div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:4px;">${s.displayName || s.name}</h3>
+        <p style="font-size:.9rem;color:var(--text-light);">${s.rank || ''} · ${s.unit || ''}</p>
+        <blockquote>"${s.story || ''}"</blockquote>
+        <p class="author">— ${s.name}</p>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // Filter map stories
+  function filterMap(conflict, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const pins = document.getElementById('mapPins').children;
+    const stories = document.getElementById('mapStoryGrid').children;
+
+    Array.from(pins).forEach(pin => {
+      const c = pin.getAttribute('data-conflict');
+      if (!conflict || conflict === 'All' || c === conflict) {
+        pin.style.opacity = '1';
+        pin.style.pointerEvents = 'auto';
+      } else {
+        pin.style.opacity = '0.15';
+        pin.style.pointerEvents = 'none';
+      }
+    });
+
+    Array.from(stories).forEach(s => s.remove());
+    renderMapStories(conflict);
+  }
+
+  // Init
+  document.addEventListener('DOMContentLoaded', () => {
+    renderMapPins();
+    renderMapStories('All');
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.href === window.location.href);
+    });
+  });
+</script>
+
+</body>
+</html>

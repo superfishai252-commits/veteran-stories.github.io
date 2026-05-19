@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeline — Veterans Stories</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-brand"><span class="star">★</span> Veterans Stories</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="story.html">Tell Your Story</a></li>
+      <li><a href="timeline.html" class="active">Timeline</a></li>
+      <li><a href="map.html">Map</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1>⏳ Timeline of Stories</h1>
+    <p>Browse firsthand accounts organized by conflict, spanning over a century of service.</p>
+  </div>
+</div>
+
+<!-- Timeline Section -->
+<section class="section">
+  <div class="container">
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterTimeline('All', this)">All Stories</button>
+      <button class="filter-btn" onclick="filterTimeline('World War II', this)">World War II</button>
+      <button class="filter-btn" onclick="filterTimeline('Korean War', this)">Korean War</button>
+      <button class="filter-btn" onclick="filterTimeline('Vietnam War', this)">Vietnam War</button>
+      <button class="filter-btn" onclick="filterTimeline('Gulf War', this)">Gulf War</button>
+      <button class="filter-btn" onclick="filterTimeline('War on Terror', this)">War on Terror</button>
+      <button class="filter-btn" onclick="filterTimeline('Iraq War', this)">Iraq War</button>
+      <button class="filter-btn" onclick="filterTimeline('Afghanistan War', this)">Afghanistan</button>
+    </div>
+
+    <!-- Timeline Container -->
+    <div class="card-grid" id="timelineGrid" style="margin-bottom:40px;">
+      <!-- Stories injected by stories.js -->
+    </div>
+
+    <div style="text-align:center; margin-top:16px;">
+      <a href="story.html" class="btn btn-ghost">✍ Add Your Story to the Timeline</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p class="brand" style="margin-bottom:8px;">★ Veterans Stories</p>
+    <p>Preserving the firsthand accounts of our nation's veterans. Built with gratitude and respect.</p>
+    <p style="margin-top:12px;">&copy; 2026 Veterans Stories. All rights reserved. | <a href="contact.html">Contact Us</a></p>
+  </div>
+</footer>
+
+<script src="js/stories.js"></script>
+<script>
+  // Render stories on load
+  document.addEventListener('DOMContentLoaded', () => {
+    renderStories('timelineGrid');
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.href === window.location.href);
+    });
+  });
+
+  function filterTimeline(conflict, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.getElementById('timelineGrid').children;
+    const userStories = JSON.parse(localStorage.getItem('veteranStories') || '[]');
+    const allStories = [...demoStories, ...userStories];
+
+    Array.from(cards).forEach((card, i) => {
+      const story = allStories[i];
+      if (!conflict || conflict === 'All' || story.conflict === conflict) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

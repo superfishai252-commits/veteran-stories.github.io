@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tell Your Story — Veterans Stories</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-brand"><span class="star">★</span> Veterans Stories</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="story.html" class="active">Tell Your Story</a></li>
+      <li><a href="timeline.html">Timeline</a></li>
+      <li><a href="map.html">Map</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1>✍ Tell Your Story</h1>
+    <p>Share your wartime experiences. Your account will be preserved and shared with future generations.</p>
+  </div>
+</div>
+
+<!-- Story Form -->
+<section class="section">
+  <div class="container">
+    <div class="form-wrapper">
+      <form id="storyForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" name="fullName" required placeholder="e.g., John Smith">
+          </div>
+          <div class="form-group">
+            <label>Display Name (optional)</label>
+            <input type="text" name="displayName" placeholder="How you'd like to be known">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Branch of Service <span class="required">*</span></label>
+            <select name="branch" required>
+              <option value="">— Select Branch —</option>
+              <option value="Army">U.S. Army</option>
+              <option value="Navy">U.S. Navy</option>
+              <option value="Air Force">U.S. Air Force</option>
+              <option value="Marines">U.S. Marine Corps</option>
+              <option value="Coast Guard">U.S. Coast Guard</option>
+              <option value="Space Force">U.S. Space Force</option>
+              <option value="National Guard">National Guard</option>
+              <option value="Reserve">Reserves</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Rank at the Time</label>
+            <input type="text" name="rank" placeholder="e.g., Sergeant, Lieutenant">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Conflict / War <span class="required">*</span></label>
+            <select name="conflict" required>
+              <option value="">— Select Conflict —</option>
+              <option value="World War II">World War II (1939–1945)</option>
+              <option value="Korean War">Korean War (1950–1953)</option>
+              <option value="Vietnam War">Vietnam War (1955–1975)</option>
+              <option value="Falklands War">Falklands War (1982)</option>
+              <option value="Gulf War">Gulf War (1990–1991)</option>
+              <option value="War on Terror">War on Terror (2001–2021)</option>
+              <option value="Iraq War">Iraq War (2003–2011)</option>
+              <option value="Afghanistan War">Afghanistan War (2001–2021)</option>
+              <option value="Other">Other / Not Listed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Years of Service</label>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <input type="text" name="yearFrom" placeholder="From" style="width:50%;">
+              <span>—</span>
+              <input type="text" name="yearTo" placeholder="To" style="width:50%;">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Country / Location of Service</label>
+            <input type="text" name="location" placeholder="e.g., Normandy, France / Baghdad, Iraq">
+          </div>
+          <div class="form-group">
+            <label>Latitude (for map)</label>
+            <input type="text" name="lat" placeholder="e.g., 49.4426">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Unit / Regiment (optional)</label>
+          <input type="text" name="unit" placeholder="e.g., 101st Airborne, USS Missouri">
+        </div>
+
+        <div class="form-group">
+          <label>Your Story <span class="required">*</span></label>
+          <textarea name="story" required placeholder="Share your experiences, memories, and reflections...&#10;&#10;Consider: What brought you into service? What was daily life like? Who were the people you served alongside? What moments stay with you today?&#10;&#10;There are no rules — just write from the heart."></textarea>
+          <p class="form-note">💡 Take your time. You can come back later to edit. Your story may include up to 5,000 characters.</p>
+        </div>
+
+        <div class="form-group">
+          <label>Was the story shared with you by a veteran?</label>
+          <div style="display:flex;gap:24px;margin-top:8px;">
+            <label style="font-weight:400;display:flex;align-items:center;gap:6px;cursor:pointer;">
+              <input type="radio" name="contributor" value="self" checked> Yes, by me (the veteran)
+            </label>
+            <label style="font-weight:400;display:flex;align-items:center;gap:6px;cursor:pointer;">
+              <input type="radio" name="contributor" value="family"> I'm a family member / relative
+            </label>
+            <label style="font-weight:400;display:flex;align-items:center;gap:6px;cursor:pointer;">
+              <input type="radio" name="contributor" value="researcher"> I'm a researcher / historian
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email (optional — for follow-up)</label>
+          <input type="email" name="email" placeholder="veteran@example.com">
+          <p class="form-note">🔒 Your email is never published. It is used only for verification purposes.</p>
+        </div>
+
+        <div style="text-align:center; margin-top:32px;">
+          <button type="submit" class="btn btn-primary" style="padding:16px 48px; font-size:1.05rem;">
+            ★ Submit Your Story
+          </button>
+          <p style="margin-top:12px; font-size:.85rem; color:var(--text-light);">Your story will be reviewed and added to the archive.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Toast -->
+<div class="toast" id="toast">✓ Story submitted successfully!</div>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = Object.fromEntries(new FormData(form));
+  // Store story in localStorage for demo
+  let stories = JSON.parse(localStorage.getItem('veteranStories') || '[]');
+  stories.push({ ...data, id: Date.now(), dateAdded: new Date().toISOString() });
+  localStorage.setItem('veteranStories', JSON.stringify(stories));
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+  form.reset();
+}
+</script>
+
+</body>
+</html>
